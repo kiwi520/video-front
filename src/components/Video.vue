@@ -1,11 +1,10 @@
 <template>
 <div>
   <!--导航条-->
+
   <swiper :options="swiperOption">
     <swiper-slide v-for="v in tags" :key="v.id">
-      <router-link :to="{params:{tid:v.id},name:'Video'}">
-        {{v.name}}
-      </router-link>
+      {{v.title}}
     </swiper-slide>
   </swiper>
   <!--导航条结束-->
@@ -48,21 +47,14 @@
 <script>
     export default {
       name: "video",
-      watch:{
-        '$route'(to,from){
-          this.loadData();
-        }
-      },
-      mounted(){
-        this.loadData();
-      },
       data() {
         return {
           tags: [
-            {"id":1,"name":"roc"},
-            {"id":2,"name":"rpc"},
-            {"id":3,"name":"usa"},
-            {"id":4,"name":"cda"},
+            {id:1,title:"roc"},
+            {id:2,title:"rpc"},
+            {id:3,title:"usa"},
+            {id:4,title:"cda"},
+            {id:5,title:"dfd"},
           ],
           lesson: [
             {"id":1,"title":"台东","lessonId":1,"preview":''},
@@ -74,12 +66,20 @@
             // {"id":7,"title":"温哥华","lessonId":4,"preview":''},
           ],
           swiperOption: {
+            spaceBetween: 30,
+            freeMode: true,
+            pagination: {
+              el: '.swiper-pagination',
+              clickable: true
+            }
+          }
+/*          paginationswiperOption: {
             pagination: '.swiper-pagination',
             slidesPerView: 3,
             paginationClickable: true,
             spaceBetween: 30,
             freeMode: true
-          }
+          }*/
           // swiperOption: {
           //   // direction: 'horizontal',
           //   loop: true,
@@ -120,7 +120,7 @@
           // },
         }
       },
-      methods:{
+/*      methods:{
         loadData(){
           //获取标签
           this.axios.get('http://laravel.hdphp.com/api/tags').then((response) => {
@@ -132,7 +132,7 @@
             this.lesson = response.data.data;
           })
         }
-      }
+      }*/
     }
 </script>
 
