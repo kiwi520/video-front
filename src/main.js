@@ -10,6 +10,12 @@ Vue.config.productionTip = false
 import 'swiper/dist/css/swiper.css'
 Vue.use(VueAwesomeSwiper, /* { default global options } */)
 /* eslint-disable no-new */
+
+import axios from 'axios'
+import VueAxios from 'vue-axios'
+
+Vue.use(VueAxios, axios)
+
 new Vue({
   el: '#app',
   router,

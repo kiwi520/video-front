@@ -1,142 +1,25 @@
 <template>
 <div>
   <!--导航条-->
-  <div class="swiper-container">
-    <div class="swiper-wrapper">
-      <a href="" class="swiper-slide cur">静态布局</a>
-      <a href="" class="swiper-slide">JavaScript</a>
-      <a href="" class="swiper-slide">PHP</a>
-      <a href="" class="swiper-slide">MySQL</a>
-      <a href="" class="swiper-slide">静态布局</a>
-      <a href="" class="swiper-slide">JavaScript</a>
-      <a href="" class="swiper-slide">PHP</a>
-      <a href="" class="swiper-slide">MySQL</a>
-    </div>
-  </div>
+  <swiper :options="swiperOption">
+    <swiper-slide v-for="v in tags" :key="v.id">
+      <router-link :to="{params:{tid:v.id},name:'Video'}">
+        {{v.name}}
+      </router-link>
+    </swiper-slide>
+  </swiper>
   <!--导航条结束-->
 
   <!--视频列表-->
   <ul id="videolist">
-    <li>
-      <router-link to="/page" class="pic">
-        <img src="static/images/5.jpg"/>
+    <li v-for="v in lesson" :key="v.id">
+      <router-link :to="{params:{lessonId:v.id},name:'Page'}" class="pic" >
+        <img :src="v.preview"/>
         <span>08:26</span>
         <i class="iconfont icon-bofang"></i>
       </router-link>
-
-      <router-link to="/page" class="title">精准投放与精准消除</router-link>
-    </li>
-    <li>
-      <a href="" class="pic">
-        <img src="static/images/17.jpg"/>
-        <span>08:26</span>
-        <i class="iconfont icon-bofang"></i>
-      </a>
-      <a href="" class="title">精准投放与精准消除</a>
-    </li>
-    <li>
-      <a href="" class="pic">
-        <img src="static/images/18.jpg"/>
-        <span>08:26</span>
-        <i class="iconfont icon-bofang"></i>
-      </a>
-      <a href="" class="title">精准投放与精准消除</a>
-    </li>
-    <li>
-      <a href="" class="pic">
-        <img src="static/images/19.jpg"/>
-        <span>08:26</span>
-        <i class="iconfont icon-bofang"></i>
-      </a>
-      <a href="" class="title">精准投放与精准消除</a>
-    </li>
-    <li>
-      <a href="" class="pic">
-        <img src="static/images/20.jpg"/>
-        <span>08:26</span>
-        <i class="iconfont icon-bofang"></i>
-      </a>
-      <a href="" class="title">精准投放与精准消除</a>
-    </li>
-    <li>
-      <a href="" class="pic">
-        <img src="static/images/21.jpg"/>
-        <span>08:26</span>
-        <i class="iconfont icon-bofang"></i>
-      </a>
-      <a href="" class="title">精准投放与精准消除</a>
-    </li>
-    <li>
-      <a href="" class="pic">
-        <img src="static/images/22.jpg"/>
-        <span>08:26</span>
-        <i class="iconfont icon-bofang"></i>
-      </a>
-      <a href="" class="title">精准投放与精准消除</a>
-    </li>
-    <li>
-      <a href="" class="pic">
-        <img src="static/images/23.jpg"/>
-        <span>08:26</span>
-        <i class="iconfont icon-bofang"></i>
-      </a>
-      <a href="" class="title">精准投放与精准消除</a>
-    </li>
-    <li>
-      <a href="" class="pic">
-        <img src="static/images/17.jpg"/>
-        <span>08:26</span>
-        <i class="iconfont icon-bofang"></i>
-      </a>
-      <a href="" class="title">精准投放与精准消除</a>
-    </li>
-    <li>
-      <a href="" class="pic">
-        <img src="static/images/18.jpg"/>
-        <span>08:26</span>
-        <i class="iconfont icon-bofang"></i>
-      </a>
-      <a href="" class="title">精准投放与精准消除</a>
-    </li>
-    <li>
-      <a href="" class="pic">
-        <img src="static/images/19.jpg"/>
-        <span>08:26</span>
-        <i class="iconfont icon-bofang"></i>
-      </a>
-      <a href="" class="title">精准投放与精准消除</a>
-    </li>
-    <li>
-      <a href="" class="pic">
-        <img src="static/images/20.jpg"/>
-        <span>08:26</span>
-        <i class="iconfont icon-bofang"></i>
-      </a>
-      <a href="" class="title">精准投放与精准消除</a>
-    </li>
-    <li>
-      <a href="" class="pic">
-        <img src="static/images/21.jpg"/>
-        <span>08:26</span>
-        <i class="iconfont icon-bofang"></i>
-      </a>
-      <a href="" class="title">精准投放与精准消除</a>
-    </li>
-    <li>
-      <a href="" class="pic">
-        <img src="static/images/22.jpg"/>
-        <span>08:26</span>
-        <i class="iconfont icon-bofang"></i>
-      </a>
-      <a href="" class="title">精准投放与精准消除</a>
-    </li>
-    <li>
-      <a href="" class="pic">
-        <img src="static/images/23.jpg"/>
-        <span>08:26</span>
-        <i class="iconfont icon-bofang"></i>
-      </a>
-      <a href="" class="title">精准投放与精准消除</a>
+      <router-link :to="{params:{lessonId:v.id},name:'Page'}">{{v.title}}-{{v.id}}
+      </router-link>
     </li>
 
   </ul>
@@ -164,7 +47,92 @@
 
 <script>
     export default {
-        name: "video"
+      name: "video",
+      watch:{
+        '$route'(to,from){
+          this.loadData();
+        }
+      },
+      mounted(){
+        this.loadData();
+      },
+      data() {
+        return {
+          tags: [
+            {"id":1,"name":"roc"},
+            {"id":2,"name":"rpc"},
+            {"id":3,"name":"usa"},
+            {"id":4,"name":"cda"},
+          ],
+          lesson: [
+            {"id":1,"title":"台东","lessonId":1,"preview":''},
+            {"id":2,"title":"基隆","lessonId":1,"preview":''},
+            // {"id":3,"title":"青岛","lessonId":2,"preview":''},
+            // {"id":4,"title":"南京","lessonId":2,"preview":''},
+            // {"id":5,"title":"纽约","lessonId":3,"preview":''},
+            // {"id":6,"title":"加州","lessonId":3,"preview":''},
+            // {"id":7,"title":"温哥华","lessonId":4,"preview":''},
+          ],
+          swiperOption: {
+            pagination: '.swiper-pagination',
+            slidesPerView: 3,
+            paginationClickable: true,
+            spaceBetween: 30,
+            freeMode: true
+          }
+          // swiperOption: {
+          //   // direction: 'horizontal',
+          //   loop: true,
+          //
+          //   // // 如果需要分页器
+          //   // pagination: '.swiper-pagination',
+          //
+          //   // 如果需要前进后退按钮
+          //   nextButton: '.swiper-button-next',
+          //   prevButton: '.swiper-button-prev',
+          //   spaceBetween: 30,
+          //   centeredSlides: true,
+          //   autoplay: {
+          //     delay: 2500,
+          //     disableOnInteraction: false
+          //   },
+          //   speed:100,
+          //   // 如果需要滚动条
+          //   // scrollbar: '.swiper-scrollbar',
+          //   effect : 'coverflow',
+          //   slidesPerView: 3,
+          //   // centeredSlides: true,
+          //   coverflow: {
+          //     rotate: 30,
+          //     stretch: 10,
+          //     depth: 60,
+          //     modifier: 2,
+          //     slideShadows : true
+          //   },
+          //   pagination: {
+          //     el: '.swiper-pagination',
+          //     clickable: true
+          //   },
+          //   navigation: {
+          //     nextEl: '.swiper-button-next',
+          //     prevEl: '.swiper-button-prev'
+          //   }
+          // },
+        }
+      },
+      methods:{
+        loadData(){
+          //获取标签
+          this.axios.get('http://laravel.hdphp.com/api/tags').then((response) => {
+            this.tags = response.data.data;
+          })
+          //获取课程
+          let tid = this.$route.params.tid;
+          this.axios.get('http://laravel.hdphp.com/api/lesson/' + (tid ? tid : 0)).then((response) => {
+            this.lesson = response.data.data;
+          })
+        }
+      }
     }
 </script>
 
@@ -174,21 +142,17 @@
     margin: 0;
     color: #31343B;
   }
-
   a {
     text-decoration: none;
     color: #31343B;
   }
-
   li {
     list-style: none;
   }
-
   body {
     font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
     padding-bottom: 15%;
   }
-
   .swiper-container {
     width: 100%;
     background: #31343B;
@@ -206,9 +170,12 @@
     position: relative;
     margin: 0 10px;
   }
-  .swiper-slide:active,.swiper-slide:link,.swiper-slide:hover{
+  .swiper-slide:active, .swiper-slide:link, .swiper-slide:hover {
     text-decoration: none;
     color: white;
+  }
+  .swiper-slide a {
+    color: #fff;
   }
   .swiper-slide.cur:after {
     display: block;
@@ -221,68 +188,63 @@
     left: 50%;
     transform: translateX(-50%);
   }
-
   /*视频列表*/
-  #videolist{
+  #videolist {
     width: 94%;
     margin: 0 auto;
     margin-top: 15%;
     display: flex;
     flex-wrap: wrap;
-    justify-content:space-between;
+    justify-content: space-between;
   }
-  #videolist li{
+  #videolist li {
     width: 49%;
     margin-top: 10px;
   }
-  #videolist li a.pic{
+  #videolist li a.pic {
     display: block;
     width: 100%;
     height: 30vw;
     overflow: hidden;
     position: relative;
   }
-  #videolist li a.pic img{
+  #videolist li a.pic img {
     position: absolute;
     left: 50%;
     top: 50%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
     height: 100%;
     min-width: 100%;
   }
-  #videolist li a.pic span{
+  #videolist li a.pic span {
     line-height: 1.5em;
     font-size: 3vw;
     color: white;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0, 0, 0, 0.5);
     position: absolute;
     right: 0;
     top: 0;
     padding: 0 2%;
   }
-  #videolist li a.pic .iconfont.icon-bofang{
+  #videolist li a.pic .iconfont.icon-bofang {
     position: absolute;
-    color: rgba(255,255,255,1);
+    color: rgba(255, 255, 255, 1);
     left: 50%;;
     top: 50%;
     font-size: 8vw;
-    transform: translate(-50%,-50%);
-    background: rgba(0,0,0,0.4);
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.4);
     border-radius: 50%;
     line-height: 1em;
   }
-  #videolist li a.title{
+  #videolist li a.title {
     display: block;
     text-align: center;
     line-height: 2.5em;
     font-size: 3.2vw;
     color: #31343B;
   }
-
-
   /*视频列表结束*/
-
-
   /*底部固定导航*/
   #bottom {
     position: fixed;
@@ -293,34 +255,28 @@
     background: #FFFFFF;
     margin: 0;
   }
-
   #bottom li {
     width: 50%;
     box-sizing: border-box;
   }
-
   #bottom li i.iconfont {
     color: #888;
     font-size: 6vw;
     display: block;
     text-align: center;
   }
-
   #bottom li span {
     font-size: 2.6vw;
     display: block;
     text-align: center;
     color: #888;
   }
-
   #bottom li.cur {
     /*background: #333;*/
   }
-
   #bottom li.cur i.iconfont {
     color: #333;
   }
-
   #bottom li.cur span {
     color: #333;
   }

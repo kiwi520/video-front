@@ -1,7 +1,8 @@
 <template>
-  <div>
+  <!--<div class="swiper-container" style="margin-top:-60px;">-->
+  <div style="margin-top:-60px;">
     <!--轮播图-->
-    <swiper :options="swiperOption" ref="mySwiper">
+    <swiper class="swiper-container" :options="swiperOption" ref="mySwiper">
       <!-- slides -->
       <swiper-slide v-for="vs of slides" :key="vs.id">
         <img :src="vs.path">
@@ -97,7 +98,7 @@
               {id: 3, path: 'static/images/3.jpg'}
             ],
               swiperOption: {
-                direction: 'horizontal',
+                // direction: 'horizontal',
                 loop: true,
 
                 // // 如果需要分页器
@@ -173,7 +174,7 @@
   }
 
   .swiper-slide {
-    background: red;
+    /*background: red;*/
   }
   .swiper-container .swiper-slide a{
     display: block;
