@@ -12,11 +12,14 @@ Vue.use(VueAwesomeSwiper, /* { default global options } */)
 /* eslint-disable no-new */
 
 import axios from 'axios'
+
 import VueAxios from 'vue-axios'
 
 Vue.use(VueAxios, axios)
 
-new Vue({
+Vue.axios.defaults.baseURL = 'http://video.test:80';
+Vue.axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+  new Vue({
   el: '#app',
   router,
   components: { App },

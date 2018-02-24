@@ -43,7 +43,10 @@
 
 <script>
     export default {
-        name: "page"
+        name: "page",
+        data  () {
+
+        }
     }
 </script>
 

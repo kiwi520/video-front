@@ -47,14 +47,22 @@
 <script>
     export default {
       name: "video",
+      watch:{
+        '$route'(to,from){
+          this.loadData();
+        }
+      },
+      mounted(){
+        this.loadData();
+      },
       data() {
         return {
           tags: [
-            {id:1,title:"roc"},
-            {id:2,title:"rpc"},
-            {id:3,title:"usa"},
-            {id:4,title:"cda"},
-            {id:5,title:"dfd"},
+            // {id:1,title:"roc"},
+            // {id:2,title:"rpc"},
+            // {id:3,title:"usa"},
+            // {id:4,title:"cda"},
+            // {id:5,title:"dfd"},
           ],
           lesson: [
             {"id":1,"title":"台东","lessonId":1,"preview":''},
@@ -120,6 +128,19 @@
           // },
         }
       },
+      methods:{
+        loadData(){
+          //获取标签
+          this.axios.get('/api/tag/list').then((response) => {
+            this.tags = response.data.data;
+          });
+          //获取课程
+          // let tid = this.$route.params.tid;
+          // this.axios.get('/api/lesson/' + (tid ? tid : 0)).then((response) => {
+          //   this.lesson = response.data.data;
+          // })
+        }
+      }
 /*      methods:{
         loadData(){
           //获取标签

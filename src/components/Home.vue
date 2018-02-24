@@ -24,30 +24,18 @@
     <h2>推荐视频</h2>
 
     <div id="recommend">
-      <a href="">
-        <img src="static/images/4.jpg" alt="" />
+      <!--<a href="">-->
+        <!--<img src="static/images/4.jpg" alt="" />-->
+        <!--<i class="iconfont icon-bofang"></i>-->
+        <!--<span class="time">22:56</span>-->
+        <!--<span class="title">谷歌：没有扫描仪也能</span>-->
+      <!--</a>-->
+      <router-link to="" v-for="com of commendLesson" :key="com.id">
+        <img :src="com.preview"/>
         <i class="iconfont icon-bofang"></i>
-        <span class="time">22:56</span>
-        <span class="title">谷歌：没有扫描仪也能</span>
-      </a>
-      <a href="">
-        <img src="static/images/5.jpg" alt="" />
-        <i class="iconfont icon-bofang"></i>
-        <span class="time">22:56</span>
-        <span class="title">谷歌：没有扫描仪也能</span>
-      </a>
-      <a href="">
-        <img src="static/images/6.jpg" alt="" />
-        <i class="iconfont icon-bofang"></i>
-        <span class="time">22:56</span>
-        <span class="title">谷歌：没有扫描仪也能</span>
-      </a>
-      <a href="">
-        <img src="static/images/7.jpg" alt="" />
-        <i class="iconfont icon-bofang"></i>
-        <span class="time">22:56</span>
-        <span class="title">谷歌：没有扫描仪也能</span>
-      </a>
+        <span>08:26</span>
+        <span class="title">{{com.title}}</span>
+      </router-link>
     </div>
     <!--推荐视频结束-->
 
@@ -58,13 +46,15 @@
     <h2>热门视频</h2>
 
     <div class="today">
-      <h2>热门推荐</h2>
       <div class="pic">
-        <a href=""><img src="static/images/14.jpg"/></a>
-        <a href=""><img src="static/images/12.jpg"/></a>
-        <a href=""><img src="static/images/16.jpg"/></a>
+        <!--{params:{lessonId:v.id},name:'Page'}-->
+        <router-link to="" v-for="cs of hotLesson" :key="cs.id">
+          <!--<span class="title">{{vv.title}}</span>-->
+          <a :href="cs.path">sadsa</a>
+        </router-link>
       </div>
     </div>
+    <div style="height: 100px;"></div>
     <!--热门视频结束-->
 
     <!--底部固定导航-->
@@ -92,6 +82,10 @@
         name: "home",
         data (){
           return {
+            //推荐课程
+            commendLesson:[],
+            //热门课程
+            hotLesson:[],
             slides: [
               {id: 1, path: 'static/images/1.jpg'},
               {id: 2, path: 'static/images/2.jpg'},
@@ -135,19 +129,33 @@
                   prevEl: '.swiper-button-prev'
                 }
               },
-          computed: {
-            swiper() {
-              return this.$refs.mySwiper.swiper
-            }
-          },
-          mounted() {
-            // current swiper instance
-            // 然后你就可以使用当前上下文内的swiper对象去做你想做的事了
-            console.log('this is current swiper instance object', this.swiper)
-            this.swiper.slideTo(3, 1000, false)
           }
-          }
-        }
+        },
+        mounted() {
+          //推荐课程
+          let _this = this
+          this.axios.get('/api/video/com')
+            .then(function (response) {
+              // console.log(response.data.data);
+              _this.commendLesson = response.data.data;
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+          //热门课程
+          this.axios.get('/api/video/hot')
+            .then(function (response) {
+              console.log(response.data.data);
+              _this.hotLesson = response.data.data;
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+          // this.axios.get('/api/video/hot').then((response) => {
+          //   _this.hotLesson = response.data.data;
+          //   // console.log(response.data.data);
+          // })
+        },
     }
 </script>
 
