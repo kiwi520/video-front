@@ -134,7 +134,7 @@
         mounted() {
           //推荐课程
           let _this = this
-          this.axios.get('/api/video/com')
+          this.axios.get('/api/comLesson/6')
             .then(function (response) {
               // console.log(response.data.data);
               _this.commendLesson = response.data.data;
@@ -143,7 +143,7 @@
               console.log(error);
             });
           //热门课程
-          this.axios.get('/api/video/hot')
+          this.axios.get('/api/hotLesson/6')
             .then(function (response) {
               console.log(response.data.data);
               _this.hotLesson = response.data.data;
