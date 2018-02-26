@@ -21,7 +21,7 @@
 
 
   <!--返回按钮-->
-  <router-link to="/" class="iconfont back">&#xe612;</router-link>
+  <a class="iconfont back" @click.prevent="back()">&#xe612;</a>
   <!--<a href="" class="iconfont back"></a>-->
 </div>
 </template>
@@ -50,10 +50,12 @@
           let _this = this
           this.axios.get('/api/videos/'+lessonId)
             .then(function (response) {
-              // console.log(response.data.data)/
-              _this.videos = response.data.data;
-              _this.current = _this.videos[0];
-              console.log(_this.current.path)
+              if(response.status!=200 && response.data.code !=200 ){
+                alert("获取视频失败，请稍后再试");
+              }else {
+                _this.videos = response.data.data;
+                _this.current = _this.videos[0];
+              }
             })
             .catch(function (error) {
               console.log(error);

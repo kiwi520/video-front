@@ -4,7 +4,9 @@
 
   <swiper :options="swiperOption">
     <swiper-slide v-for="v in tags" :key="v.id">
-      {{v.title}}
+      <router-link :to="{params:{tid:v.id},name:'Video'}">
+        {{v.title}}
+      </router-link>
     </swiper-slide>
   </swiper>
   <!--导航条结束-->
@@ -46,7 +48,7 @@
 
 <script>
     export default {
-      name: "video",
+      name: "Video",
       watch:{
         '$route'(to,from){
           this.loadData();
@@ -57,22 +59,8 @@
       },
       data() {
         return {
-          tags: [
-            // {id:1,title:"roc"},
-            // {id:2,title:"rpc"},
-            // {id:3,title:"usa"},
-            // {id:4,title:"cda"},
-            // {id:5,title:"dfd"},
-          ],
-          lesson: [
-            {"id":1,"title":"台东","lessonId":1,"preview":''},
-            {"id":2,"title":"基隆","lessonId":1,"preview":''},
-            // {"id":3,"title":"青岛","lessonId":2,"preview":''},
-            // {"id":4,"title":"南京","lessonId":2,"preview":''},
-            // {"id":5,"title":"纽约","lessonId":3,"preview":''},
-            // {"id":6,"title":"加州","lessonId":3,"preview":''},
-            // {"id":7,"title":"温哥华","lessonId":4,"preview":''},
-          ],
+          tags: [],
+          lesson: [],
           swiperOption: {
             spaceBetween: 30,
             freeMode: true,
@@ -81,79 +69,22 @@
               clickable: true
             }
           }
-/*          paginationswiperOption: {
-            pagination: '.swiper-pagination',
-            slidesPerView: 3,
-            paginationClickable: true,
-            spaceBetween: 30,
-            freeMode: true
-          }*/
-          // swiperOption: {
-          //   // direction: 'horizontal',
-          //   loop: true,
-          //
-          //   // // 如果需要分页器
-          //   // pagination: '.swiper-pagination',
-          //
-          //   // 如果需要前进后退按钮
-          //   nextButton: '.swiper-button-next',
-          //   prevButton: '.swiper-button-prev',
-          //   spaceBetween: 30,
-          //   centeredSlides: true,
-          //   autoplay: {
-          //     delay: 2500,
-          //     disableOnInteraction: false
-          //   },
-          //   speed:100,
-          //   // 如果需要滚动条
-          //   // scrollbar: '.swiper-scrollbar',
-          //   effect : 'coverflow',
-          //   slidesPerView: 3,
-          //   // centeredSlides: true,
-          //   coverflow: {
-          //     rotate: 30,
-          //     stretch: 10,
-          //     depth: 60,
-          //     modifier: 2,
-          //     slideShadows : true
-          //   },
-          //   pagination: {
-          //     el: '.swiper-pagination',
-          //     clickable: true
-          //   },
-          //   navigation: {
-          //     nextEl: '.swiper-button-next',
-          //     prevEl: '.swiper-button-prev'
-          //   }
-          // },
         }
       },
       methods:{
         loadData(){
           //获取标签
           this.axios.get('/api/tag/list').then((response) => {
+            // console.log(response.data.data)
             this.tags = response.data.data;
           });
           //获取课程
-          // let tid = this.$route.params.tid;
-          // this.axios.get('/api/lesson/' + (tid ? tid : 0)).then((response) => {
-          //   this.lesson = response.data.data;
-          // })
-        }
-      }
-/*      methods:{
-        loadData(){
-          //获取标签
-          this.axios.get('http://laravel.hdphp.com/api/tags').then((response) => {
-            this.tags = response.data.data;
-          })
-          //获取课程
           let tid = this.$route.params.tid;
-          this.axios.get('http://laravel.hdphp.com/api/lesson/' + (tid ? tid : 0)).then((response) => {
+          this.axios.get('/api/lesson/' + (tid ? tid : 0)).then((response) => {
             this.lesson = response.data.data;
           })
         }
-      }*/
+      }
     }
 </script>
 

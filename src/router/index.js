@@ -18,12 +18,12 @@ export default new Router({
       }
     },
     {
-      path: '/video',
+      path: '/video/:tid?',
       name: 'Video',
       component: Video,
     },
     {
-      path: '/page',
+      path: '/page/:lessonId',
       name: 'Page',
       component: Page
     }

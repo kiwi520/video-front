@@ -45,7 +45,7 @@
       <router-link to="/video" class="more">MORE</router-link>
     </div>
 
-    <div style="height: 100px;"></div>
+    <!--<div style="height: 50px;"></div>-->
     <!--热门视频结束-->
 
     <!--底部固定导航-->
@@ -343,6 +343,7 @@
     display: flex;
     background: #FFFFFF;
     margin: 0;
+    border-top: solid 1px #dddddd;
   }
   #bottom li{
     width: 50%;
