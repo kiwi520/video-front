@@ -1,7 +1,9 @@
 <template>
   <div id="app">
-    <!--<img src="./assets/logo.png">-->
-    <router-view/>
+    <transition enter-active-class="animated swing">
+      <router-view/>
+    </transition>
+
   </div>
 </template>
 
