@@ -24,13 +24,7 @@
     <h2>推荐视频</h2>
 
     <div id="recommend">
-      <!--<a href="">-->
-        <!--<img src="static/images/4.jpg" alt="" />-->
-        <!--<i class="iconfont icon-bofang"></i>-->
-        <!--<span class="time">22:56</span>-->
-        <!--<span class="title">谷歌：没有扫描仪也能</span>-->
-      <!--</a>-->
-      <router-link to="" v-for="com of commendLesson" :key="com.id">
+      <router-link :to="{params:{lessonId:com.id},name:'Page'}" v-for="com of commendLesson" :key="com.id">
         <img :src="com.preview"/>
         <i class="iconfont icon-bofang"></i>
         <span>08:26</span>
@@ -136,7 +130,6 @@
           let _this = this
           this.axios.get('/api/comLesson/6')
             .then(function (response) {
-              // console.log(response.data.data);
               _this.commendLesson = response.data.data;
             })
             .catch(function (error) {

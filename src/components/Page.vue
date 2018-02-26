@@ -1,37 +1,22 @@
 <template>
-<div>
+<div style="margin-top:-60px;">
 
   <!--视频-->
-  <video src="static/images/big_buck_bunny.mp4" controls="controls" poster="static/images/510.jpg"></video>
-  <!--视频结束-->
+  <!--<video class="wrapper" :src="current.path" controls="controls" loop muted autoplay ></video>-->
+  <!--<video style="width:100%;height:100%;object-fit:fill" :src="current.path" controls="controls" loop muted autoplay ></video>-->
+  <!--<video style="width:100%;height:100%;object-fit:fill" :src="current.path" controls="controls" loop muted autoplay ></video>-->
+
+  <div class="vid-wrap">
+    <video controls autoplay loop>
+      <span style="white-space:pre;"> </span><source :src="current.path" >
+    </video>
+  </div>
+    <!--视频结束-->
 
   <h1>10 导航条样式的设置</h1>
 
   <ul id="list">
-    <li><a href="">07 w3c规范 创建网页的方法</a></li>
-    <li class="cur"><a href="">08 a标签 img标签详解</a></li>
-    <li><a href="">09 代码注释</a></li>
-    <li><a href="">07 w3c规范 创建网页的方法</a></li>
-    <li><a href="">08 a标签 img标签详解</a></li>
-    <li><a href="">09 代码注释</a></li>
-    <li><a href="">07 w3c规范 创建网页的方法</a></li>
-    <li><a href="">08 a标签 img标签详解</a></li>
-    <li><a href="">09 代码注释</a></li>
-    <li><a href="">08 a标签 img标签详解</a></li>
-    <li><a href="">09 代码注释</a></li>
-    <li><a href="">07 w3c规范 创建网页的方法</a></li>
-    <li><a href="">08 a标签 img标签详解</a></li>
-    <li><a href="">09 代码注释</a></li>
-    <li><a href="">08 a标签 img标签详解</a></li>
-    <li><a href="">09 代码注释</a></li>
-    <li><a href="">07 w3c规范 创建网页的方法</a></li>
-    <li><a href="">08 a标签 img标签详解</a></li>
-    <li><a href="">09 代码注释</a></li>
-    <li><a href="">08 a标签 img标签详解</a></li>
-    <li><a href="">09 代码注释</a></li>
-    <li><a href="">07 w3c规范 创建网页的方法</a></li>
-    <li><a href="">08 a标签 img标签详解</a></li>
-    <li><a href="">09 代码注释</a></li>
+    <li v-for="v in videos"><a href="" @click.prevent="play(v)">{{v.title}}</a></li>
   </ul>
 
 
@@ -45,7 +30,34 @@
     export default {
         name: "page",
         data  () {
-
+          return {
+            //当前视频
+            current: {},
+            //视频列表
+            videos: []
+          }
+        },
+        methods:{
+          play(video){
+            this.current=video;
+          },
+          back(){
+            this.$router.back();
+          }
+        },
+        mounted (){
+          let lessonId = this.$route.params.lessonId;
+          let _this = this
+          this.axios.get('/api/videos/'+lessonId)
+            .then(function (response) {
+              // console.log(response.data.data)/
+              _this.videos = response.data.data;
+              _this.current = _this.videos[0];
+              console.log(_this.current.path)
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
         }
     }
 </script>
@@ -70,6 +82,28 @@
     font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
     /*padding-bottom: 15%;*/
   }
+
+  /*.wrapper{*/
+    /*max-width:600px;*/
+  /*}*/
+  /*.wrapper video{*/
+    /*max-width:100%;*/
+    /*display:block;*/
+  /*}*/
+  .vid-wrap{
+    width:100%;background: #000;
+    position:relative;
+    padding-bottom:56.25%;    /*需要用padding来维持16:9比例,也就是9除以16*/
+    height: 0;
+  }
+  .vid-wrap video{
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 100%
+  }
+
 
 
   /*底部固定导航*/
