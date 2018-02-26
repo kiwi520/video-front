@@ -4,16 +4,16 @@
   <!--视频-->
   <!--<video class="wrapper" :src="current.path" controls="controls" loop muted autoplay ></video>-->
   <!--<video style="width:100%;height:100%;object-fit:fill" :src="current.path" controls="controls" loop muted autoplay ></video>-->
-  <!--<video style="width:100%;height:100%;object-fit:fill" :src="current.path" controls="controls" loop muted autoplay ></video>-->
+  <video style="width:100%;height:100%;object-fit:fill" :src="current.path" controls="controls" loop muted autoplay ></video>
 
-  <div class="vid-wrap">
-    <video controls autoplay loop>
-      <span style="white-space:pre;"> </span><source :src="current.path" >
-    </video>
-  </div>
+  <!--<div class="vid-wrap">-->
+    <!--<video controls autoplay loop>-->
+      <!--<span style="white-space:pre;"> </span><source :src="current.path">-->
+    <!--</video>-->
+  <!--</div>-->
     <!--视频结束-->
 
-  <h1>10 导航条样式的设置</h1>
+  <h1>{{current.title}}</h1>
 
   <ul id="list">
     <li v-for="v in videos"><a href="" @click.prevent="play(v)">{{v.title}}</a></li>
@@ -83,13 +83,6 @@
     /*padding-bottom: 15%;*/
   }
 
-  /*.wrapper{*/
-    /*max-width:600px;*/
-  /*}*/
-  /*.wrapper video{*/
-    /*max-width:100%;*/
-    /*display:block;*/
-  /*}*/
   .vid-wrap{
     width:100%;background: #000;
     position:relative;
@@ -101,7 +94,7 @@
     top:0;
     left: 0;
     width: 100%;
-    height: 100%
+    max-height: 600px;
   }
 
 

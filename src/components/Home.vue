@@ -7,12 +7,6 @@
       <swiper-slide v-for="vs of slides" :key="vs.id">
         <img :src="vs.path">
       </swiper-slide>
-      <!-- Optional controls -->
-      <!--<div class="swiper-pagination"  slot="pagination"></div>-->
-      <!--<div class="swiper-button-prev" slot="button-prev"></div>-->
-      <!--<div class="swiper-button-next" slot="button-next"></div>-->
-      <!--<div class="swiper-scrollbar"   slot="scrollbar"></div>-->
-      <!--<div class="swiper-pagination" slot="pagination"></div>-->
 
       <div class="swiper-pagination" slot="pagination"></div>
       <div class="swiper-button-prev" slot="button-prev"></div>
@@ -33,7 +27,8 @@
     </div>
     <!--推荐视频结束-->
 
-    <a href="" class="more">MORE ></a>
+    <router-link to="/video" class="more">MORE</router-link>
+    <!--<a href="" class="more">MORE ></a>-->
 
 
     <!--热门视频-->
@@ -41,13 +36,15 @@
 
     <div class="today">
       <div class="pic">
-        <!--{params:{lessonId:v.id},name:'Page'}-->
-        <router-link to="" v-for="cs of hotLesson" :key="cs.id">
-          <!--<span class="title">{{vv.title}}</span>-->
-          <a :href="cs.path">sadsa</a>
-        </router-link>
+        <div class="pic">
+          <router-link :to="{params:{lessonId:v.id},name:'Page'}" v-for="v in hotLesson" :key="v.id">
+            <img :src="v.preview">
+          </router-link>
+        </div>
       </div>
+      <router-link to="/video" class="more">MORE</router-link>
     </div>
+
     <div style="height: 100px;"></div>
     <!--热门视频结束-->
 
@@ -80,6 +77,8 @@
             commendLesson:[],
             //热门课程
             hotLesson:[],
+            //视频服务器server
+            baseUris:'',
             slides: [
               {id: 1, path: 'static/images/1.jpg'},
               {id: 2, path: 'static/images/2.jpg'},
@@ -88,10 +87,6 @@
               swiperOption: {
                 // direction: 'horizontal',
                 loop: true,
-
-                // // 如果需要分页器
-                // pagination: '.swiper-pagination',
-
                 // 如果需要前进后退按钮
                 nextButton: '.swiper-button-next',
                 prevButton: '.swiper-button-prev',
@@ -125,6 +120,8 @@
               },
           }
         },
+      computed () {
+      },
         mounted() {
           //推荐课程
           let _this = this
@@ -138,16 +135,12 @@
           //热门课程
           this.axios.get('/api/hotLesson/6')
             .then(function (response) {
-              console.log(response.data.data);
+              // console.log(response.data.data);
               _this.hotLesson = response.data.data;
             })
             .catch(function (error) {
               console.log(error);
             });
-          // this.axios.get('/api/video/hot').then((response) => {
-          //   _this.hotLesson = response.data.data;
-          //   // console.log(response.data.data);
-          // })
         },
     }
 </script>

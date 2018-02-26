@@ -17,7 +17,10 @@ import VueAxios from 'vue-axios'
 
 Vue.use(VueAxios, axios)
 
-Vue.axios.defaults.baseURL = 'http://video.test:80';
+import global_ from "./components/Global.vue"
+Vue.prototype.GLOBAL = global_;
+
+Vue.axios.defaults.baseURL = global_.BASE_URL;
 Vue.axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
   new Vue({
   el: '#app',
