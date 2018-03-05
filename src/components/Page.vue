@@ -4,7 +4,7 @@
   <!--视频-->
   <!--<video class="wrapper" :src="current.path" controls="controls" loop muted autoplay ></video>-->
   <!--<video style="width:100%;height:100%;object-fit:fill" :src="current.path" controls="controls" loop muted autoplay ></video>-->
-  <video style="width:100%;height:100%;object-fit:fill" :src="current.path" controls="controls"
+  <video style="width:100%;height:100%;object-fit:fill" :src="current.path | filterFullPath" controls="controls"
          loop muted autoplay
          preload="auto"
          webkit-playsinline
@@ -36,8 +36,15 @@
 </template>
 
 <script>
+    import global_ from "./Global.vue"
     export default {
         name: "page",
+      filters: {
+        filterFullPath: function (value) {
+          if (!value) return ''
+          return global_.IMAGE_URL +'/'+ value
+        }
+      },
         data  () {
           return {
             //当前视频
@@ -57,7 +64,7 @@
         mounted (){
           let lessonId = this.$route.params.lessonId;
           let _this = this
-          this.axios.get('/api/videos/'+lessonId)
+          this.axios.get('/video/'+lessonId)
             .then(function (response) {
               if(response.status!=200 && response.data.code !=200 ){
                 alert("获取视频失败，请稍后再试");

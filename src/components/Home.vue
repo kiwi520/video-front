@@ -6,6 +6,8 @@
       <!-- slides -->
       <swiper-slide v-for="vs of slides" :key="vs.id">
         <img :src="vs.path">
+        <!--<img :src="vs.path | filterFullPath ">-->
+
       </swiper-slide>
 
       <div class="swiper-pagination" slot="pagination"></div>
@@ -19,9 +21,10 @@
 
     <div id="recommend">
       <router-link :to="{params:{lessonId:com.id},name:'Page'}" v-for="com of commendLesson" :key="com.id">
-        <img :src="com.preview"/>
+        <!--<img :src="com.preview"/>-->
+        <img :src="com.preview | filterFullPath ">
         <i class="iconfont icon-bofang"></i>
-        <span>08:26</span>
+        <!--<span>08:26</span>-->
         <span class="title">{{com.title}}</span>
       </router-link>
     </div>
@@ -38,7 +41,8 @@
       <div class="pic">
         <div class="pic">
           <router-link :to="{params:{lessonId:v.id},name:'Page'}" v-for="v in hotLesson" :key="v.id">
-            <img :src="v.preview">
+            <img :src="v.preview | filterFullPath ">
+            <!--<img :src="v.preview">-->
           </router-link>
         </div>
       </div>
@@ -69,8 +73,15 @@
 </template>
 
 <script>
+  import global_ from "./Global.vue"
     export default {
         name: "home",
+        filters: {
+          filterFullPath: function (value) {
+            if (!value) return ''
+            return global_.IMAGE_URL +'/'+ value
+          }
+        },
         data (){
           return {
             //推荐课程
@@ -125,7 +136,7 @@
         mounted() {
           //推荐课程
           let _this = this
-          this.axios.get('/api/comLesson/6')
+          this.axios.get('/recommend/6')
             .then(function (response) {
               _this.commendLesson = response.data.data;
             })
@@ -133,7 +144,7 @@
               console.log(error);
             });
           //热门课程
-          this.axios.get('/api/hotLesson/6')
+          this.axios.get('/hot/6')
             .then(function (response) {
               // console.log(response.data.data);
               _this.hotLesson = response.data.data;

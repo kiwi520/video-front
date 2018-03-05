@@ -15,8 +15,9 @@
   <ul id="videolist">
     <li v-for="v in lesson" :key="v.id">
       <router-link :to="{params:{lessonId:v.id},name:'Page'}" class="pic" >
-        <img :src="v.preview"/>
-        <span>08:26</span>
+        <img :src="v.preview | filterFullPath ">
+        <!--<img :src="v.preview"/>-->
+        <!--<span>08:26</span>-->
         <i class="iconfont icon-bofang"></i>
       </router-link>
       <router-link :to="{params:{lessonId:v.id},name:'Page'}">{{v.title}}-{{v.id}}
@@ -47,8 +48,15 @@
 </template>
 
 <script>
+    import global_ from "./Global.vue"
     export default {
       name: "Video",
+      filters: {
+        filterFullPath: function (value) {
+          if (!value) return ''
+          return global_.IMAGE_URL +'/'+ value
+        }
+      },
       watch:{
         '$route'(to,from){
           this.loadData();
@@ -74,13 +82,13 @@
       methods:{
         loadData(){
           //获取标签
-          this.axios.get('/api/tag/list').then((response) => {
+          this.axios.get('/tags').then((response) => {
             // console.log(response.data.data)
             this.tags = response.data.data;
           });
           //获取课程
-          let tid = this.$route.params.tid;
-          this.axios.get('/api/lesson/' + (tid ? tid : 0)).then((response) => {
+          let tid = this.$route.params.tid ? this.$route.params.tid : 'list';
+          this.axios.get('/lesson/' + tid).then((response) => {
             this.lesson = response.data.data;
           })
         }
