@@ -20,7 +20,7 @@
         <!--<span>08:26</span>-->
         <i class="iconfont icon-bofang"></i>
       </router-link>
-      <router-link :to="{params:{lessonId:v.id},name:'Page'}">{{v.title}}-{{v.id}}
+      <router-link :to="{params:{lessonId:v.id},name:'Page'}">{{v.title}}
       </router-link>
     </li>
 

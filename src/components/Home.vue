@@ -1,22 +1,23 @@
 <template>
   <!--<div class="swiper-container" style="margin-top:-60px;">-->
-  <div style="margin-top:-60px;">
+  <!--<div style="margin-top:-60px;">-->
+  <div>
     <!--轮播图-->
-    <swiper class="swiper-container" :options="swiperOption" ref="mySwiper">
-      <!-- slides -->
-      <swiper-slide v-for="vs of slides" :key="vs.id">
-        <router-link :to="{params:{lessonId:vs.id},name:'Page'}">
-        <img :src="vs.preview | filterFullPath ">
-        </router-link>
+    <!--<swiper class="swiper-container" :options="swiperOption" ref="mySwiper">-->
+      <!--&lt;!&ndash; slides &ndash;&gt;-->
+      <!--<swiper-slide v-for="vs of slides" :key="vs.id">-->
+        <!--<router-link :to="{params:{lessonId:vs.id},name:'Page'}">-->
+        <!--<img :src="vs.preview | filterFullPath ">-->
+        <!--</router-link>-->
 
-      </swiper-slide>
+      <!--</swiper-slide>-->
 
-      <div class="swiper-pagination" slot="pagination"></div>
-      <div class="swiper-button-prev" slot="button-prev"></div>
-      <div class="swiper-button-next" slot="button-next"></div>
-    </swiper>
+      <!--<div class="swiper-pagination" slot="pagination"></div>-->
+      <!--<div class="swiper-button-prev" slot="button-prev"></div>-->
+      <!--<div class="swiper-button-next" slot="button-next"></div>-->
+    <!--</swiper>-->
     <!--轮播图结束-->
-
+    <h1 style="align:center;font-size: 6vw;">欢迎来到kiwi小视频</h1>
     <!--推荐视频-->
     <h2>推荐视频</h2>
 

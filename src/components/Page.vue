@@ -4,22 +4,16 @@
   <!--视频-->
   <!--<video class="wrapper" :src="current.path" controls="controls" loop muted autoplay ></video>-->
   <!--<video style="width:100%;height:100%;object-fit:fill" :src="current.path" controls="controls" loop muted autoplay ></video>-->
-  <video style="width:100%;height:100%;object-fit:fill" :src="current.path | filterFullPath" controls="controls"
-         loop muted autoplay
-         preload="auto"
-         webkit-playsinline
-         playsinline
-         x-webkit-airplay="allow"
-         x5-video-player-type="h5"
-         x5-video-player-fullscreen="true"
-         x5-video-orientation="portraint"
-  ></video>
-
-  <!--<div class="vid-wrap">-->
-    <!--<video controls autoplay loop>-->
-      <!--<span style="white-space:pre;"> </span><source :src="current.path">-->
-    <!--</video>-->
-  <!--</div>-->
+  <!--<video style="width:100%;height:100%;object-fit:fill" :src="current.path | filterFullPath" controls="controls"-->
+         <!--loop muted-->
+         <!--webkit-playsinline-->
+         <!--playsinline-->
+         <!--x-webkit-airplay="allow"-->
+         <!--x5-video-player-type="h5"-->
+         <!--x5-video-player-fullscreen="true"-->
+         <!--x5-video-orientation="portraint"-->
+  <!--&gt;</video>-->
+    <video style="width:100%;height:100%;object-fit:fill" :src="current.path | filterFullPath" controls="controls"></video>
     <!--视频结束-->
 
   <h1>{{current.title}}</h1>
