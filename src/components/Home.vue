@@ -5,8 +5,9 @@
     <swiper class="swiper-container" :options="swiperOption" ref="mySwiper">
       <!-- slides -->
       <swiper-slide v-for="vs of slides" :key="vs.id">
-        <img :src="vs.path">
-        <!--<img :src="vs.path | filterFullPath ">-->
+        <router-link :to="{params:{lessonId:vs.id},name:'Page'}">
+        <img :src="vs.preview | filterFullPath ">
+        </router-link>
 
       </swiper-slide>
 
@@ -21,10 +22,8 @@
 
     <div id="recommend">
       <router-link :to="{params:{lessonId:com.id},name:'Page'}" v-for="com of commendLesson" :key="com.id">
-        <!--<img :src="com.preview"/>-->
         <img :src="com.preview | filterFullPath ">
         <i class="iconfont icon-bofang"></i>
-        <!--<span>08:26</span>-->
         <span class="title">{{com.title}}</span>
       </router-link>
     </div>
@@ -90,11 +89,7 @@
             hotLesson:[],
             //视频服务器server
             baseUris:'',
-            slides: [
-              {id: 1, path: 'static/images/1.jpg'},
-              {id: 2, path: 'static/images/2.jpg'},
-              {id: 3, path: 'static/images/3.jpg'}
-            ],
+            slides: [],
               swiperOption: {
                 // direction: 'horizontal',
                 loop: true,
@@ -131,14 +126,20 @@
               },
           }
         },
-      computed () {
-      },
         mounted() {
           //推荐课程
           let _this = this
           this.axios.get('/recommend/6')
             .then(function (response) {
               _this.commendLesson = response.data.data;
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+          //轮播图
+          this.axios.get('/images/6')
+            .then(function (response) {
+              _this.slides = response.data.data;
             })
             .catch(function (error) {
               console.log(error);

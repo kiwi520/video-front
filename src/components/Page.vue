@@ -40,9 +40,9 @@
     export default {
         name: "page",
       filters: {
-        filterFullPath: function (value) {
-          if (!value) return ''
-          return global_.IMAGE_URL +'/'+ value
+        filterFullPath: function (va) {
+          if (!va) return ''
+           return global_.SERVER_URL + va.substring(0,va.indexOf('.'))
         }
       },
         data  () {
